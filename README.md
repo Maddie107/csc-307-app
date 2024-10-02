@@ -1,1 +1,1 @@
-First steps of first assignment for csc 307
+Finished first app for csc 307
