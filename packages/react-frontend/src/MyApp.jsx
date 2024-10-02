@@ -1,4 +1,4 @@
-// src/MyApp.jsx (Adding the form component after the table)
+// src/MyApp.jsx (a new function inside the MyApp function)
 import React, { useState } from "react";
 import Table from "./Table";
 import Form from "./Form";
@@ -11,6 +11,9 @@ function MyApp() {
 		});
 		setCharacters(updated);
 	}
+	function updateList(person) {
+		setCharacters([...characters, person]);
+	}
 
   return (
     <div className="container">
@@ -18,7 +21,7 @@ function MyApp() {
 	   characterData={characters} 
 	   removeCharacter={removeOneCharacter}
 	   />
-	    <Form />
+	    <Form handleSubmit={updateList} />
     </div>
   );
 }
