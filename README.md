@@ -1,1 +1,1 @@
-Finished first app for csc 307
+Csc 307 first app finished
