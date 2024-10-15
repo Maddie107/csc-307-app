@@ -67,8 +67,8 @@ app.delete("/users/:id", (req, res) => {
   const id = req.params["id"];
   const deletedUser = findUserById(id);
   if( deletedUser != undefined){
-    let result = deleteUser(id);
-    res.send(result);
+    deleteUser(id);
+    res.status(204).send();
   }else{
     res.status(404).send("Delete failed.");
   }

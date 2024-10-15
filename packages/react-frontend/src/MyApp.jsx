@@ -9,11 +9,16 @@ function MyApp() {
 		const updated = characters.filter((character, i) => {
 			return i !== index;
 		});
-		setCharacters(updated);
+		const id = characters[index].id;
+		const promise = fetch(`http://localhost:8000/users/${id}`, {
+			method: "DELETE"
+		});
+		promise.then((res) => {
+			if (res.status == 204){
+				setCharacters(updated);
+			}
+		})
 	}
-	// function updateList(person) {
-	// 	setCharacters([...characters, person]);
-	// }
 	function fetchUsers() {
 		const promise = fetch("http://localhost:8000/users");
 		return promise;
@@ -27,7 +32,7 @@ function MyApp() {
 			});
 	}, []);
 	function postUser(person) {
-		const promise = fetch("Http://localhost:8000/users", {
+		const promise = fetch("http://localhost:8000/users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -39,7 +44,17 @@ function MyApp() {
 	}
 	function updateList(person) {
 		postUser(person)
-		  .then(() => setCharacters([...characters, person]))
+			.then((res) => {
+				if(res.status === 201){
+					return res.json();
+				}
+			})
+		  .then((updatedPerson) => {
+			if(updatedPerson){
+				setCharacters([...characters, updatedPerson])
+			}
+		  } 
+		  )
 		  .catch((error) => {
 			console.log(error);
 		  });
