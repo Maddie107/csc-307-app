@@ -109,9 +109,15 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  let id = randomId();
+  userToAdd.id = id;
   addUser(userToAdd);
-  res.send();
+  res.status(201).send(userToAdd);
 });
+
+function randomId(){
+  return Math.random().toString().slice(2,8); 
+}
 app.listen(port, () => {
   console.log(
     `Example app listening at http://localhost:${port}`
